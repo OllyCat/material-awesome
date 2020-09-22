@@ -1,11 +1,15 @@
 local awful = require('awful')
 require('awful.autofocus')
+local naughty = require('naughty')
 local beautiful = require('beautiful')
 local hotkeys_popup = require('awful.hotkeys_popup').widget
 
 local modkey = require('configuration.keys.mod').modKey
 local altkey = require('configuration.keys.mod').altKey
 local apps = require('configuration.apps')
+
+local home_dir = os.getenv('HOME')
+
 -- Key bindings
 local globalKeys =
   awful.util.table.join(
@@ -75,6 +79,26 @@ local globalKeys =
       awful.spawn(apps.default.lock)
     end,
     {description = 'Lock the screen', group = 'awesome'}
+  ),
+  awful.key(
+    {},
+    'XF86Display',
+    function()
+		awful.spawn.easy_async("xrandr", function(out)
+			for line in out:gmatch("[^\n]*") do
+				con = string.match(line, "^([^ ]+) connected ")
+				if con then
+					res = string.match(line, " connected [^0-9]*(%d+x%d+)")
+					if con and res then
+						awful.spawn(home_dir .. "/.screenlayout/int-mon.sh", false)
+					else
+						awful.spawn(home_dir .. "/.screenlayout/two-mon-auto.sh", false)
+					end
+				end
+			end 
+		end)
+    end,
+    {description = 'подключение монитора', group = 'awesome'}
   ),
   awful.key(
     {modkey},
@@ -201,6 +225,42 @@ local globalKeys =
   ),
   awful.key(
     {modkey, 'Control'},
+    'space',
+    awful.client.floating.toggle,
+    {description = 'toggle floating', group = 'client'}
+  ),
+  awful.key(
+    {modkey},
+    't',
+	function()
+      local c = client.focus
+		c.ontop = not c.ontop
+	end,
+    {description = 'toggle keep on top', group = 'client'}
+  ),
+  awful.key(
+    {modkey},
+    'n',
+    function()
+		local c = client.focus
+		-- The client currently has the input focus, so it cannot be minimized, since minimized clients can't have the focus.
+		c.minimized = true
+	end,
+    {description = 'minimize', group = 'client'}
+  ),
+  awful.key(
+    {modkey},
+    'm',
+    function()
+		local c = client.focus
+		-- The client currently has the input focus, so it cannot be minimized, since minimized clients can't have the focus.
+		c.maximized = not c.maximized
+		c:raise()
+	end,
+    {description = 'minimize', group = 'client'}
+  ),
+  awful.key(
+    {modkey, 'Control'},
     'n',
     function()
       local c = awful.client.restore()
@@ -212,12 +272,36 @@ local globalKeys =
     end,
     {description = 'restore minimized', group = 'client'}
   ),
-  -- Dropdown application
+  awful.key(
+    {modkey, 'Control'},
+    'i',
+    function()
+		local c = client.focus
+		local geom = c:geometry()
+
+		local t = ""
+		if c.class    then t = t .. "<b>Class</b>: "    .. c.class    .. "\n" end
+		if c.instance then t = t .. "<b>Instance</b>: " .. c.instance .. "\n" end
+		if c.role     then t = t .. "<b>Role</b>: "     .. c.role     .. "\n" end
+		if c.name     then t = t .. "<b>Name</b>: "     .. c.name     .. "\n" end
+		if c.type     then t = t .. "<b>Type</b>: "     .. c.type     .. "\n" end
+		if geom.width and geom.height and geom.x and geom.y then
+			t = t .. "<b>Dimensions</b>: <b>x</b>:" .. geom.x .. "<b> y</b>:" .. geom.y .. "<b> w</b>:" .. geom.width .. "<b> h</b>:" .. geom.height
+		end
+
+		naughty.notify({
+			text = t,
+			timeout = 60
+		})
+    end,
+    {description = 'window information', group = 'client'}
+  ),
+  --Dropdown application
   awful.key(
     {modkey},
     '`',
     function()
-      _G.toggle_quake()
+    _G.toggle_quake()
     end,
     {description = 'dropdown application', group = 'launcher'}
   ),
@@ -317,7 +401,7 @@ local globalKeys =
   ),
   -- Open default program for tag
   awful.key(
-    {modkey},
+    {modkey, 'Control'},
     't',
     function()
       awful.spawn(
