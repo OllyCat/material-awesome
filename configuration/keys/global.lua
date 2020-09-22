@@ -14,8 +14,8 @@ local globalKeys =
   -- Tag browsing
   awful.key({modkey}, 'w', awful.tag.viewprev, {description = 'view previous', group = 'tag'}),
   awful.key({modkey}, 's', awful.tag.viewnext, {description = 'view next', group = 'tag'}),
-  awful.key({altkey, 'Control'}, 'Up', awful.tag.viewprev, {description = 'view previous', group = 'tag'}),
-  awful.key({altkey, 'Control'}, 'Down', awful.tag.viewnext, {description = 'view next', group = 'tag'}),
+  --awful.key({altkey, 'Control'}, 'Up', awful.tag.viewprev, {description = 'view previous', group = 'tag'}),
+  --awful.key({altkey, 'Control'}, 'Down', awful.tag.viewnext, {description = 'view next', group = 'tag'}),
   awful.key({modkey}, 'Escape', awful.tag.history.restore, {description = 'go back', group = 'tag'}),
   -- Default client focus
   awful.key(
@@ -42,14 +42,6 @@ local globalKeys =
     end,
     {description = 'show main menu', group = 'awesome'}
   ),
-  awful.key(
-    {altkey},
-    'space',
-    function()
-      _G.screen.primary.left_panel:toggle(true)
-    end,
-    {description = 'show main menu', group = 'awesome'}
-  ),
   awful.key({modkey}, 'u', awful.client.urgent.jumpto, {description = 'jump to urgent client', group = 'client'}),
   awful.key(
     {altkey},
@@ -63,59 +55,59 @@ local globalKeys =
     end,
     {description = 'Switch to next window', group = 'client'}
   ),
-  awful.key(
-    {altkey, 'Shift'},
-    'Tab',
-    function()
-      --awful.client.focus.history.previous()
-      awful.client.focus.byidx(-1)
-      if _G.client.focus then
-        _G.client.focus:raise()
-      end
-    end,
-    {description = 'Switch to previous window', group = 'client'}
-  ),
+  --awful.key(
+  --  {altkey, 'Shift'},
+  --  'Tab',
+  --  function()
+  --    --awful.client.focus.history.previous()
+  --    awful.client.focus.byidx(-1)
+  --    if _G.client.focus then
+  --      _G.client.focus:raise()
+  --    end
+  --  end,
+  --  {description = 'Switch to previous window', group = 'client'}
+  --),
   -- Programms
   awful.key(
-    {modkey},
-    'l',
+    {},
+    'XF86Calculator',
     function()
       awful.spawn(apps.default.lock)
     end,
     {description = 'Lock the screen', group = 'awesome'}
   ),
   awful.key(
-    {'Control','Shift'},
+    {modkey},
     'Print',
     function()
       awful.util.spawn_with_shell(apps.default.delayed_screenshot)
     end,
     {description = 'Mark an area and screenshot it 10 seconds later (clipboard)', group = 'screenshots (clipboard)'}
   ),
+  --awful.key(
+  --  {modkey},
+  --  'p',
+  --  function()
+  --    awful.util.spawn_with_shell(apps.default.screenshot)
+  --  end,
+  --  {description = 'Take a screenshot of your active monitor and copy it to clipboard', group = 'screenshots (clipboard)'}
+  --),
   awful.key(
-    {altkey},
-    'Print',
-    function()
-      awful.util.spawn_with_shell(apps.default.screenshot)
-    end,
-    {description = 'Take a screenshot of your active monitor and copy it to clipboard', group = 'screenshots (clipboard)'}
-  ),
-  awful.key(
-    {'Control'},
+    {altkey, 'Shift'},
     'Print',
     function()
       awful.util.spawn_with_shell(apps.default.region_screenshot)
     end,
     {description = 'Mark an area and screenshot it to your clipboard', group = 'screenshots (clipboard)'}
   ),
-  awful.key(
-    {modkey},
-    'c',
-    function()
-      awful.util.spawn(apps.default.editor)
-    end,
-    {description = 'open a text/code editor', group = 'launcher'}
-  ),
+  --awful.key(
+  --  {modkey},
+  --  'c',
+  --  function()
+  --    awful.util.spawn(apps.default.editor)
+  --  end,
+  --  {description = 'open a text/code editor', group = 'launcher'}
+  --),
   awful.key(
     {modkey},
     'b',
@@ -124,24 +116,7 @@ local globalKeys =
     end,
     {description = 'open a browser', group = 'launcher'}
   ),
-  -- Open private browser/brave
-  awful.key(
-    {modkey},
-    'p',
-    function()
-      awful.util.spawn_with_shell('brave-browser')
-    end,
-    {description = 'Open Brave', group = 'launcher'}
-  ),
   -- Standard program
-  awful.key(
-    {modkey},
-    'x',
-    function()
-      awful.util.spawn_with_shell(apps.default.terminal)
-    end,
-    {description = 'open a terminal', group = 'launcher'}
-  ),
   awful.key({modkey, 'Control'}, 'r', _G.awesome.restart, {description = 'reload awesome', group = 'awesome'}),
   awful.key({modkey, 'Control'}, 'q', _G.awesome.quit, {description = 'quit awesome', group = 'awesome'}),
   awful.key(
@@ -240,7 +215,7 @@ local globalKeys =
   -- Dropdown application
   awful.key(
     {modkey},
-    'z',
+    '`',
     function()
       _G.toggle_quake()
     end,
@@ -272,24 +247,24 @@ local globalKeys =
     {},
     'XF86MonBrightnessUp',
     function()
-      awful.spawn('xbacklight -inc 10')
+      awful.spawn('xbacklight -inc 6')
     end,
-    {description = '+10%', group = 'hotkeys'}
+    {description = '+6%', group = 'hotkeys'}
   ),
   awful.key(
     {},
     'XF86MonBrightnessDown',
     function()
-      awful.spawn('xbacklight -dec 10')
+      awful.spawn('xbacklight -dec 6')
     end,
-    {description = '-10%', group = 'hotkeys'}
+    {description = '-6%', group = 'hotkeys'}
   ),
   -- ALSA volume control
   awful.key(
     {},
     'XF86AudioRaiseVolume',
     function()
-      awful.spawn('amixer -D pulse sset Master 5%+')
+      awful.spawn('pamixer -i 4')
     end,
     {description = 'volume up', group = 'hotkeys'}
   ),
@@ -297,7 +272,7 @@ local globalKeys =
     {},
     'XF86AudioLowerVolume',
     function()
-      awful.spawn('amixer -D pulse sset Master 5%-')
+      awful.spawn('pamixer -d 4')
     end,
     {description = 'volume down', group = 'hotkeys'}
   ),
@@ -305,7 +280,7 @@ local globalKeys =
     {},
     'XF86AudioMute',
     function()
-      awful.spawn('amixer -D pulse set Master 1+ toggle')
+      awful.spawn('pamixer -t')
     end,
     {description = 'toggle mute', group = 'hotkeys'}
   ),
@@ -315,7 +290,7 @@ local globalKeys =
     function()
       --
     end,
-    {description = 'toggle mute', group = 'hotkeys'}
+    {description = 'audio next', group = 'hotkeys'}
   ),
   awful.key(
     {},
@@ -323,15 +298,15 @@ local globalKeys =
     function()
       --
     end,
-    {description = 'toggle mute', group = 'hotkeys'}
+    {description = 'power down', group = 'hotkeys'}
   ),
   awful.key(
     {},
-    'XF86PowerOff',
+    'XF86Explorer',
     function()
       _G.exit_screen_show()
     end,
-    {description = 'toggle mute', group = 'hotkeys'}
+    {description = 'power off menu', group = 'hotkeys'}
   ),
   -- Screen management
   awful.key(
@@ -356,24 +331,40 @@ local globalKeys =
     {description = 'open default program for tag/workspace', group = 'tag'}
   ),
   -- Custom hotkeys
-  -- vfio integration
+  -- Lutris hotkey
   awful.key(
-    {'Control',altkey},
-    'space',
+    {modkey},
+    'g',
     function()
-      awful.util.spawn_with_shell('vm-attach attach')
+      awful.util.spawn_with_shell('lutris')
     end
   ),
-  -- Emoji typing
-  -- setup info at https://gist.github.com/HikariKnight/8562837d28dec3674dba027c7892e6a5
+  -- System Monitor hotkey
+  awful.key(
+    {},
+    'XF86Display',
+    function()
+      --awful.util.spawn_with_shell('mate-system-monitor')
+    end
+  ),
+  -- File Manager
   awful.key(
     {modkey},
     'e',
     function()
-      awful.util.spawn_with_shell('emoji-toggle')
+      awful.util.spawn(apps.default.files)
     end,
-    {description = 'Toggle the ibus unimoji engine for writing emojis', group = 'hotkeys'}
+    {description = 'filebrowser', group = 'hotkeys'}
   )
+  -- Emoji Picker
+  --awful.key(
+  --  {modkey},
+  --  'a',
+  --  function()
+  --    awful.util.spawn_with_shell('ibus emoji')
+  --  end,
+  --  {description = 'Open the ibus emoji picker to copy an emoji to your clipboard', group = 'hotkeys'}
+  --)
 )
 
 -- Bind all key numbers to tags.

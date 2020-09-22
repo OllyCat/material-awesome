@@ -12,44 +12,59 @@ An almost desktop environment made with [AwesomeWM](https://awesomewm.org/) foll
 |:-------------:|:-------------:|:-------------:|
 |![](https://i.imgur.com/fELCtep.png)|![](https://i.imgur.com/7IthpQS.png)|![](https://i.imgur.com/rcKOLYQ.png)|
 
-
-
 ## Installation
-### Note: the best transition is from gnome to material-awesome as KDE-plasma can break some indicators until plasma is purged entierly.
 
 ### 1) Get all the dependencies
-- [AwesomeWM](https://awesomewm.org/) as the window manager
-- [Roboto](https://fonts.google.com/specimen/Roboto) as the **font**
-- [Rofi](https://github.com/DaveDavenport/rofi) for the app launcher
-- [Compton fork](https://github.com/tryone144/compton) for the compositor (blur and animations)
-- [i3lock-fancy](https://github.com/meskarune/i3lock-fancy) the lockscreen application
-- [xclip](https://github.com/astrand/xclip) for copying screenshots to clipboard
-- __gnome-keyring-daemon__ and a __policykit-agent__ (by default policykit-1-gnome is enabled)
-- (Optional) __qt5-styles-gtk2__ or __qt5-styles-plugins__ for making QT and KDE applications look the same as gnome applications
-- (Optional) [Materia](https://github.com/nana-4/materia-theme) as GTK theme
-- (Optional) [Papirus Dark](https://github.com/PapirusDevelopmentTeam/papirus-icon-theme) as icon theme
-- (Optional) [lxappearance](https://sourceforge.net/projects/lxde/files/LXAppearance/) to set up the gtk and icon theme
-- (Optional) [xbacklight](https://www.x.org/archive/X11R7.5/doc/man/man1/xbacklight.1.html) for adjusting brightness on laptops (disabled by default)
-- (Optional) [kde-spectacle](https://kde.org/applications/utilities/org.kde.spectacle) my personal screenshot utility of choice, can be replaced by whichever you want, just remember to edit the screenshot utility script
+
+#### Debian-Based
+
+```
+sudo add-apt-repository ppa:regolith-linux/unstable -y
+sudo apt install awesome fonts-roboto rofi picom i3lock xclip qt5-style-plugins materia-gtk-theme lxappearance xbacklight kde-spectacle nautilus xfce4-power-manager pnmixer network-manager-applet gnome-polkit -y
+wget -qO- https://git.io/papirus-icon-theme-install | sh
+```
+
+*Note: PPA is for picom since compton is old and hasn't been updated*
+
+#### Arch-Based
+
+```
+yay -S awesome rofi picom i3lock-fancy xclip ttf-roboto gnome-polkit materia-gtk-theme lxappearance flameshot pnmixer network-manager-applet xfce4-power-manager -y
+wget -qO- https://git.io/papirus-icon-theme-install | sh
+```
+
+#### Program list
+
+- [AwesomeWM](https://awesomewm.org/) as the window manager - universal package install: awesome
+- [Roboto](https://fonts.google.com/specimen/Roboto) as the **font** - Debian: fonts-roboto Arch: ttf-roboto
+- [Rofi](https://github.com/DaveDavenport/rofi) for the app launcher - universal install: rofi
+- [picom](https://github.com/yshui/picom) for the compositor (blur and animations) universal install: picom - Debian users need PPA (`sudo add-apt-repository ppa:regolith-linux/unstable`)
+- [i3lock](https://github.com/meskarune/i3lock-fancy) the lockscreen application universal install: i3lock-fancy
+- [xclip](https://github.com/astrand/xclip) for copying screenshots to clipboard package: xclip
+- [gnome-polkit] recommend using the gnome-polkit as it integrates nicely for elevating programs that need root access
+- [Materia](https://github.com/nana-4/materia-theme) as GTK theme - Arch Install: materia-theme debian: materia-gtk-theme
+- [Papirus Dark](https://github.com/PapirusDevelopmentTeam/papirus-icon-theme) as icon theme Universal Install: wget -qO- https://git.io/papirus-icon-theme-install | sh
+- [lxappearance](https://sourceforge.net/projects/lxde/files/LXAppearance/) to set up the gtk and icon theme
+- (Laptop) [xbacklight](https://www.x.org/archive/X11R7.5/doc/man/man1/xbacklight.1.html) for adjusting brightness on laptops (disabled by default)
+- [flameshot](https://flameshot.js.org/#/) my personal screenshot utility of choice, can be replaced by whichever you want, just remember to edit the apps.lua file
+- [pnmixer](https://github.com/nicklan/pnmixer) Audio Tray icon that is in debian repositories and is easily installed on arch through AUR.
+- [network-manager-applet](https://gitlab.gnome.org/GNOME/network-manager-applet) nm-applet is a Network Manager Tray display from GNOME.
+- [xfce4-power-manager](https://docs.xfce.org/xfce/xfce4-power-manager/start) XFCE4's power manager is excellent and a great way of dealing with sleep, monitor timeout, and other power management features.
 
 ### 2) Clone the configuration
 
 ```
-git clone https://github.com/HikariKnight/material-awesome.git ~/.config/awesome
-```
-
-> Awesome 4.3 is so new that most of the distributions have not updated it yet. If you want to install this config on Awesome 4.2 (current version on depo) use the specific awesome-4.2 branch (not in development by me)
-
-```
-git clone -b awesome-4.2 https://github.com/PapyElGringo/material-awesome.git ~/.config/awesome
+git clone https://github.com/ChrisTitusTech/material-awesome.git ~/.config/awesome
 ```
 
 ### 3) Set the themes
-Start **lxappearance** to active the **icon** theme and **GTK** theme
+
+Start `lxappearance` to active the **icon** theme and **GTK** theme
 Note: for cursor theme, edit `~/.icons/default/index.theme` and `~/.config/gtk3-0/settings.ini`, for the change to also show up in applications run as root, copy the 2 files over to their respective place in `/root`.
 
 ### 4) Same theme for Qt/KDE applications and GTK applications, and fix missing indicators
-First install `qt5-style-plugins` (or `qt5-style-gtk2`) and add this to the bottom of your `/etc/environment`
+
+First install `qt5-style-plugins` (debian) | `qt5-styleplugins` (arch) and add this to the bottom of your `/etc/environment`
 
 ```bash
 XDG_CURRENT_DESKTOP=Unity
@@ -58,14 +73,14 @@ QT_QPA_PLATFORMTHEME=gtk2
 
 The first variable fixes most indicators (especially electron based ones!), the second tells Qt and KDE applications to use your gtk2 theme set through lxappearance.
 
-
 ### 5) Read the documentation
+
 The documentation live within the source code.
 
-The project is split in functional directories and in each of them there is a readme where you can get additionnal informations about the them.
+The project is split in functional directories and in each of them there is a readme where you can get additional information about the them.
 
 * [Configuration](./configuration) is about all the **settings** available
 * [Layout](./layout) hold the **disposition** of all the widgets
 * [Module](./module) contain all the **features** available
-* [Theme](./theme) hold all the **aestetic** aspects
+* [Theme](./theme) hold all the **aesthetic** aspects
 * [Widget](./widget) contain all the **widgets** available

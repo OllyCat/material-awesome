@@ -1,5 +1,6 @@
 local gears = require('gears')
 local awful = require('awful')
+local wibox = require("wibox")
 require('awful.autofocus')
 local beautiful = require('beautiful')
 
@@ -81,3 +82,15 @@ _G.client.connect_signal(
     c.border_color = beautiful.border_normal
   end
 )
+
+-- {{{ timer for change background
+
+gears.timer({
+				timeout = 600,
+				autostart = true,
+				call_now = true,
+				callback = function()
+					awful.spawn.with_shell("feh --bg-fill -z ~/backup/pics/background/солнышко*.jpg")
+				end
+			})
+-- }}}

@@ -13,25 +13,13 @@ local tags = {
   {
     icon = icons.code,
     type = 'code',
-    defaultApp = apps.default.editor,
+    defaultApp = apps.default.terminal,
     screen = 1
   },
   {
     icon = icons.social,
     type = 'social',
     defaultApp = apps.default.social,
-    screen = 1
-  },
-  {
-    icon = icons.game,
-    type = 'game',
-    defaultApp = apps.default.game,
-    screen = 1
-  },
-  {
-    icon = icons.vm,
-    type = 'vms',
-    defaultApp = apps.default.game,
     screen = 1
   },
   {
@@ -51,12 +39,18 @@ local tags = {
     type = 'any',
     defaultApp = apps.default.rofi,
     screen = 1
-  }
+  },
+  {
+    icon = icons.game,
+    type = 'game',
+    defaultApp = apps.default.game,
+    screen = 1
+  },
 }
 
 awful.layout.layouts = {
-  awful.layout.suit.tile,
   awful.layout.suit.max,
+  awful.layout.suit.tile,
   awful.layout.suit.floating
 }
 
@@ -68,9 +62,9 @@ awful.screen.connect_for_each_screen(
         {
           icon = tag.icon,
           icon_only = true,
-          layout = awful.layout.suit.tile,
+          layout = awful.layout.suit.max,
           gap_single_client = false,
-          gap = 4,
+          gap = 1,
           screen = s,
           defaultApp = tag.defaultApp,
           selected = i == 1
@@ -87,7 +81,7 @@ _G.tag.connect_signal(
     if (currentLayout == awful.layout.suit.max) then
       t.gap = 0
     else
-      t.gap = 4
+      t.gap = 1
     end
   end
 )

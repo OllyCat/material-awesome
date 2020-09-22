@@ -1,8 +1,3 @@
 #!/bin/bash
-if [ $1 == "--delayed" ]; then
-    sleep 10 ; spectacle -b -n ${@:2} -o /tmp/screenshot.png ; xclip -selection clipboard -target image/png -i /tmp/screenshot.png ; paplay /usr/share/sounds/freedesktop/stereo/camera-shutter.oga
-else
-    spectacle -b -n $@ -o /tmp/screenshot.png ; xclip -selection clipboard -target image/png -i /tmp/screenshot.png ; paplay /usr/share/sounds/freedesktop/stereo/camera-shutter.oga
-fi
 
-
+spectacle -b -n $@ -o ~/Pictures/Screenshot-$(date "+%Y.%m.%d-%H.%M.%S").png ; xclip -selection clipboard -target image/png -i ~/Pictures/Screenshot-$(date "+%Y.%m.%d-%H.%M.%S").png ; paplay /usr/share/sounds/freedesktop/stereo/camera-shutter.oga
