@@ -43,8 +43,8 @@ dbus.connect_signal("ru.gentoo.kbdd", mykey_update)
 -- keyboard indicator }}}
 
 -- Clock / Calendar 24h format
---local textclock = wibox.widget.textclock('<span font="Roboto Mono bold 9">%d.%m.%Y\n     %H:%M</span>')
-local textclock = wibox.widget.textclock('<span font="Roboto Mono bold 10">%H:%M</span>')
+local textclock = wibox.widget.textclock('<span font="Roboto Mono bold 9">%d.%m.%Y\n   %H:%M</span>')
+--local textclock = wibox.widget.textclock('<span font="Roboto Mono bold 10">%H:%M</span>')
 
 -- Add a calendar (credits to kylekewley for the original code)
 local month_calendar = awful.widget.calendar_popup.month({

@@ -17,15 +17,15 @@ awful.rules.rules = {
         keys = client_keys,
         buttons = client_buttons,
         screen = awful.screen.preferred,
-        placement = awful.placement.no_offscreen,
-        floating = false,
-        maximized = false,
-        above = false,
-        below = false,
-        ontop = false,
-        sticky = false,
-        maximized_horizontal = false,
-        maximized_vertical = false
+        placement = awful.placement.no_overlap+awful.placement.no_offscreen,
+        --floating = false,
+        --maximized = false,
+        --above = false,
+        --below = false,
+        --ontop = false,
+        --sticky = false,
+        --maximized_horizontal = false,
+        --maximized_vertical = false
     }
   },
   {
@@ -91,6 +91,56 @@ awful.rules.rules = {
 		  floating = true,
 		  drawBackdrop = true,
 		  skip_decoration = true
+	  }
+  },
+    -- Set Browser to always map on the tag named "2" on screen 1.
+    { rule_any = { class = {
+	    "firefox",
+		"Navigator",
+		"Vimperator",
+	    "Google-chrome" },
+	 },
+      properties = {
+		  --screen = 1,
+		  tag = "1"
+	  }
+  },
+    -- terminal to 2 tag
+    { rule_any = { class = {
+	    "xterm",
+	    "Terminator",
+	    "Gnome-terminal",
+	    "Xfce4-terminal" },
+	 },
+      properties = {
+		  --screen = 1,
+		  tag = "2"
+	  }
+  },
+    -- мессенджеры во 3-ой tag
+    { rule_any = { class = {
+	    "ViberPC",
+	    "zoom",
+	    "Telegram" },
+	 },
+      properties = {
+		  screen = 1,
+		  tag = "3",
+		  floating = false
+	  }
+  },
+
+    { rule_any = { class = {
+	    "Ekiga",
+	    "Skype",
+	    "Linphone video",
+	    "Linphone",
+	    },
+	 },
+      properties = {
+		  screen = 1,
+		  tag = "3",
+		  floating = true
 	  }
   },
   -- Titlebars
