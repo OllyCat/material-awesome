@@ -13,6 +13,23 @@ return wibox.widget {
   require('widget.cpu.cpu-meter'),
   require('widget.ram.ram-meter'),
   require('widget.temperature.temperature-meter'),
-  require('widget.harddrive.harddrive-meter'),
+  wibox.widget {
+    wibox.widget {
+      text = '\t/',
+      font = 'Roboto medium 10',
+      widget = wibox.widget.textbox
+    },
+    widget = mat_list_item
+  },
+  require('widget.harddrive.harddrive-root'),
+  wibox.widget {
+    wibox.widget {
+      text = '\t/home',
+      font = 'Roboto medium 10',
+      widget = wibox.widget.textbox
+    },
+    widget = mat_list_item
+  },
+  require('widget.harddrive.harddrive-home'),
   layout = wibox.layout.fixed.vertical
 }

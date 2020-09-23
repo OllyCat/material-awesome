@@ -1,5 +1,6 @@
 local awful = require('awful')
 local gears = require('gears')
+local beautiful = require('beautiful')
 local client_keys = require('configuration.client.keys')
 local client_buttons = require('configuration.client.buttons')
 
@@ -9,25 +10,88 @@ awful.rules.rules = {
   {
     rule = {},
     properties = {
-      focus = awful.client.focus.filter,
-      raise = true,
-      keys = client_keys,
-      buttons = client_buttons,
-      screen = awful.screen.preferred,
-      placement = awful.placement.no_offscreen,
-      floating = false,
-      maximized = false,
-      above = false,
-      below = false,
-      ontop = false,
-      sticky = false,
-      maximized_horizontal = false,
-      maximized_vertical = false
+		border_width = beautiful.border_width,
+		border_color = beautiful.border_normal,
+        focus = awful.client.focus.filter,
+        raise = true,
+        keys = client_keys,
+        buttons = client_buttons,
+        screen = awful.screen.preferred,
+        placement = awful.placement.no_offscreen,
+        floating = false,
+        maximized = false,
+        above = false,
+        below = false,
+        ontop = false,
+        sticky = false,
+        maximized_horizontal = false,
+        maximized_vertical = false
     }
   },
   {
     rule_any = {name = {'QuakeTerminal'}},
     properties = {skip_decoration = true}
+  },
+    -- Floating clients.
+    { rule_any = {
+        instance = {
+          "DTA",  -- Firefox addon DownThemAll.
+          "copyq",  -- Includes session name in class.
+		  "plugin-container",
+		  "xjadeo",
+		  "ardour_mixer",
+        },
+        class = {
+		"Anki",
+		"Stardict",
+		"Steam",
+		"MPlayer",
+		"mplayer2",
+		"mpv",
+		"feh",
+		"Tk",
+		"Ekiga", "ekiga",
+		"Linphone", "linphone",
+		"Blink", "blink",
+		"Zoiper", "zoiper",
+		"Fdclock",
+		"zenity", "Zenity", "Yad",
+		"Eviacam",
+		"qjackctl",
+		"Vkeybd.tcl",
+		"Jack-keyboard",
+		"Jack_mixer",
+		"qsynth",
+		"Pavumeter",
+		"net-whn-loki-common-Main", -- для явавской морды Loki render менеджера blender
+		"processing-app-Base",
+        "Arandr",
+        "Gpick",
+        "Kruler",
+        "MessageWin",  -- kalarm.
+        "Sxiv",
+        "Wpa_gui",
+        "pinentry",
+        "veromix",
+        "Yad",
+        "Solaar",
+        "xtightvncviewer"},
+
+        name = {
+          "Event Tester",  -- xev.
+		  "XBindKey",
+		  "Ripple Desktop Wallet",
+        },
+        role = {
+          "AlarmWindow",  -- Thunderbird's calendar.
+          "pop-up",       -- e.g. Google Chrome's (detached) Developer Tools.
+        }
+      }, properties = {
+		  placement = awful.placement.centered,
+		  floating = true,
+		  drawBackdrop = true,
+		  skip_decoration = true
+	  }
   },
   -- Titlebars
   {
