@@ -80,39 +80,14 @@ end
 local last_battery_check = os.time()
 
 watch(
-  'acpi -i',
+  "cat /sys/class/power_supply/BAT0/uevent | tr '\n' ' '",
   1,
-  function(_, stdout)
+  function(_, s)
     local batteryIconName = 'battery'
 
-    local battery_info = {}
-    local capacities = {}
-    for s in stdout:gmatch('[^\r\n]+') do
-      local status, charge_str, time = string.match(s, '.+: (%a+), (%d?%d?%d)%%,?.*')
-      if status ~= nil then
-        table.insert(battery_info, {status = status, charge = tonumber(charge_str)})
-      else
-        local cap_str = string.match(s, '.+:.+last full capacity (%d+)')
-        table.insert(capacities, tonumber(cap_str))
-      end
-    end
-
-    local capacity = 0
-    for _, cap in ipairs(capacities) do
-      capacity = capacity + cap
-    end
-
-    local charge = 0
-    local status
-    for i, batt in ipairs(battery_info) do
-      if batt.charge >= charge then
-        status = batt.status -- use most charged battery status
-      -- this is arbitrary, and maybe another metric should be used
-      end
-
-      charge = charge + batt.charge * capacities[i]
-    end
-    charge = charge / capacity
+    local status = string.match(s, 'POWER_SUPPLY_STATUS=(%a+)')
+    local charge_str = string.match(s, 'POWER_SUPPLY_CAPACITY=(%d+)')
+    local charge = tonumber(charge_str)
 
     if (charge >= 0 and charge < 15) then
       if status ~= 'Charging' and os.difftime(os.time(), last_battery_check) > 300 then
@@ -136,7 +111,7 @@ watch(
 
     widget.icon:set_image(PATH_TO_ICONS .. batteryIconName .. '.svg')
     -- Update popup text
-    battery_popup.text = string.gsub(stdout, '\n$', '')
+    battery_popup.text = string.gsub(s, '$', '')
     collectgarbage('collect')
   end,
   widget
