@@ -20,6 +20,8 @@ local dpi = require('beautiful').xresources.apply_dpi
 -- Battery 0: Discharging, 75%, 01:51:38 remaining
 -- Battery 0: Charging, 53%, 00:57:43 until charged
 
+_G.battery_persent=0
+
 local HOME = os.getenv('HOME')
 local PATH_TO_ICONS = HOME .. '/.config/awesome/widget/battery/icons/'
 
@@ -46,16 +48,32 @@ widget_button:buttons(
     )
   )
 )
+
 -- Alternative to naughty.notify - tooltip. You can compare both and choose the preferred one
-local battery_popup =
-  awful.tooltip(
-  {
-    objects = {widget_button},
-    mode = 'outside',
-    align = 'left',
-    preferred_positions = {'right', 'left', 'top', 'bottom'}
+--local battery_popup =
+--  awful.tooltip(
+--  {
+--    objects = {widget_button},
+--    mode = 'outside',
+--    align = 'left',
+--    preferred_positions = {'right', 'left', 'top', 'bottom'}
+--  }
+--)
+
+local function battery_popup()
+  naughty.notify {
+    icon = PATH_TO_ICONS .. 'popup/' .. tostring(_G.battery_persent) .. '.svg',
+    icon_size = dpi(200),
+    timeout = 15,
+    hover_timeout = 0.5,
+    position = 'bottom_left',
+    --bg = '#d32f2f',
+    --fg = '#EEE9EF',
+    width = 240
   }
-)
+end
+
+widget_button:connect_signal('mouse::enter', battery_popup)
 
 -- To use colors from beautiful theme put
 -- following lines in rc.lua before require("battery"):
@@ -88,8 +106,9 @@ watch(
     local status = string.match(s, 'POWER_SUPPLY_STATUS=(%a+)')
     local charge_str = string.match(s, 'POWER_SUPPLY_CAPACITY=(%d+)')
     local charge = tonumber(charge_str)
+	_G.battery_persent = charge
 
-    if (charge >= 0 and charge < 15) then
+    if (charge >= 0 and charge < 20) then
       if status ~= 'Charging' and os.difftime(os.time(), last_battery_check) > 300 then
         -- if 5 minutes have elapsed since the last warning
         last_battery_check = _G.time()
@@ -111,7 +130,7 @@ watch(
 
     widget.icon:set_image(PATH_TO_ICONS .. batteryIconName .. '.svg')
     -- Update popup text
-    battery_popup.text = string.gsub(s, '$', '')
+    --battery_popup.text = string.gsub(s, '$', '')
     collectgarbage('collect')
   end,
   widget
