@@ -10,6 +10,7 @@
 APPS=(
     #barrier
 	"xgamma -rgamma 0.91 -ggamma 0.72 -bgamma 0.70"
+	kbdd
     )
 
 # Some applications start child applications that need to be killed on reload
