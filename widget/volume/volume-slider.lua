@@ -19,8 +19,7 @@ local PATH_TO_ICONS = HOME .. '/.config/awesome/widget/volume/icons/'
 _G.vol_id = nil
 
 function show_volume(vol)
-  v = tostring(5 * (vol // 5))
-  v = string.gsub(v, '%.%d+', '')
+  v = tostring(math.floor(5 * (vol // 5)))
   _G.vol_id = naughty.notify {
 	icon = PATH_TO_ICONS .. v .. '.svg',
 	icon_size = dpi(250),
