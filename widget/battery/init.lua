@@ -117,7 +117,7 @@ watch(
       end
     end
 
-    if status == 'Charging' or status == 'Full' then
+    if status == 'Charging' or status == 'Full' or status == 'Unknown' then
       batteryIconName = batteryIconName .. '-charging'
     end
 
