@@ -348,7 +348,7 @@ local globalKeys =
     {},
     'XF86AudioRaiseVolume',
     function()
-      awful.spawn('pamixer -i 4')
+      awful.spawn.easy_async('pamixer --allow-boost --get-volume -i 4', show_volume)
     end,
     {description = 'volume up', group = 'hotkeys'}
   ),
@@ -356,7 +356,7 @@ local globalKeys =
     {},
     'XF86AudioLowerVolume',
     function()
-      awful.spawn('pamixer -d 4')
+      awful.spawn.easy_async('pamixer --allow-boost --get-volume -d 4', show_volume)
     end,
     {description = 'volume down', group = 'hotkeys'}
   ),
