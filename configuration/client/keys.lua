@@ -14,6 +14,15 @@ local clientKeys =
     end,
     {description = 'toggle fullscreen', group = 'client'}
   ),
+  -- Screen management
+  awful.key(
+    {modkey},
+    'o',
+	function(c)
+		c:move_to_screen()
+	end,
+    {description = 'move window to next screen', group = 'client'}
+  ),
   awful.key(
     {altkey},
     'F4',
