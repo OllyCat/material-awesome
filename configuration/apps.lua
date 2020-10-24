@@ -24,7 +24,6 @@ return {
   },
   -- List of apps to start once on start-up
   run_on_start_up = {
-	'xgamma -rgamma 0.91 -ggamma 0.72 -bgamma 0.70',
     'picom --config ' .. filesystem.get_configuration_dir() .. '/configuration/picom.conf',
     'nm-applet --indicator', -- wifi
     'pasystray', -- shows an audiocontrol applet in systray when installed.

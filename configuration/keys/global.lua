@@ -301,7 +301,7 @@ local globalKeys =
     {modkey},
     '`',
     function()
-    _G.toggle_quake()
+		_G.toggle_quake()
     end,
     {description = 'dropdown application', group = 'launcher'}
   ),
@@ -385,8 +385,9 @@ local globalKeys =
     {description = 'power down', group = 'hotkeys'}
   ),
   awful.key(
-    {},
-    'XF86Explorer',
+    {modkey},
+    --'XF86Explorer',
+    'F12',
     function()
       _G.exit_screen_show()
     end,

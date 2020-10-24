@@ -97,43 +97,45 @@ end
 
 local last_battery_check = os.time()
 
-watch(
-  "cat /sys/class/power_supply/BAT0/uevent | tr '\n' ' '",
-  1,
-  function(_, s)
-    local batteryIconName = 'battery'
+function battery_status()
+	awful.spawn.easy_async_with_shell("cat /sys/class/power_supply/BAT1/uevent | tr '\n' ' '",
+		function(s)
+			local batteryIconName = 'battery'
 
-    local status = string.match(s, 'POWER_SUPPLY_STATUS=(%a+)')
-    local charge_str = string.match(s, 'POWER_SUPPLY_CAPACITY=(%d+)')
-    local charge = tonumber(charge_str)
-	_G.battery_persent = charge
+			local status = string.match(s, 'POWER_SUPPLY_STATUS=(%a+)')
+			local charge_str = string.match(s, 'POWER_SUPPLY_CAPACITY=(%d+)')
+			local charge = tonumber(charge_str)
+			_G.battery_persent = charge
 
-    if (charge >= 0 and charge < 20) then
-      if status ~= 'Charging' and os.difftime(os.time(), last_battery_check) > 300 then
-        -- if 5 minutes have elapsed since the last warning
-        last_battery_check = _G.time()
+			if (charge >= 0 and charge < 20) then
+			  if status ~= 'Charging' and os.difftime(os.time(), last_battery_check) > 300 then
+				-- if 5 minutes have elapsed since the last warning
+				last_battery_check = _G.time()
 
-        show_battery_warning()
-      end
-    end
+				show_battery_warning()
+			  end
+			end
 
-    if status == 'Charging' or status == 'Full' or status == 'Unknown' then
-      batteryIconName = batteryIconName .. '-charging'
-    end
+			if status == 'Charging' or status == 'Full' or status == 'Unknown' then
+			  batteryIconName = batteryIconName .. '-charging'
+			end
 
-    local roundedCharge = math.floor(charge / 10) * 10
-    if (roundedCharge == 0) then
-      batteryIconName = batteryIconName .. '-outline'
-    elseif (roundedCharge ~= 100) then
-      batteryIconName = batteryIconName .. '-' .. roundedCharge
-    end
+			local roundedCharge = math.floor(charge / 10) * 10
+			if (roundedCharge == 0) then
+			  batteryIconName = batteryIconName .. '-outline'
+			elseif (roundedCharge ~= 100) then
+			  batteryIconName = batteryIconName .. '-' .. roundedCharge
+			end
 
-    widget.icon:set_image(PATH_TO_ICONS .. batteryIconName .. '.svg')
-    -- Update popup text
-    --battery_popup.text = string.gsub(s, '$', '')
-    collectgarbage('collect')
-  end,
-  widget
-)
+			widget.icon:set_image(PATH_TO_ICONS .. batteryIconName .. '.svg')
+			-- Update popup text
+			--battery_popup.text = string.gsub(s, '$', '')
+			collectgarbage('collect')
+		end)
+end
+
+local battery_timer = gears.timer({timeout = 1})
+battery_timer:connect_signal("timeout", function() battery_status() end)
+battery_timer:start()
 
 return widget_button
