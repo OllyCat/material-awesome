@@ -18,14 +18,14 @@ awful.rules.rules = {
         buttons = client_buttons,
         screen = awful.screen.preferred,
         placement = awful.placement.no_overlap+awful.placement.no_offscreen,
-        --floating = false,
-        --maximized = false,
-        --above = false,
-        --below = false,
-        --ontop = false,
-        --sticky = false,
-        --maximized_horizontal = false,
-        --maximized_vertical = false
+        floating = false,
+        maximized = false,
+        above = false,
+        below = false,
+        ontop = false,
+        sticky = false,
+        maximized_horizontal = false,
+        maximized_vertical = false
     }
   },
   {
@@ -93,7 +93,21 @@ awful.rules.rules = {
 		  skip_decoration = true
 	  }
   },
-    -- Set Browser to always map on the tag named "2" on screen 1.
+    -- for wine
+    { rule_any = { class = {
+	    ".exe",
+	    },
+	 },
+      properties = {
+		  --screen = 1,
+		  --tag = "7",
+		  placement = awful.placement.centered,
+		  floating = true,
+		  drawBackdrop = true,
+		  skip_decoration = true,
+	  }
+  },
+    -- Set Browser to always map on the tag named "1"
     { rule_any = { class = {
 	    "firefox",
 		"Navigator",
@@ -121,7 +135,9 @@ awful.rules.rules = {
     { rule_any = { class = {
 	    "ViberPC",
 	    "zoom",
-	    "Telegram" },
+	    "Telegram",
+		"discord",
+		},
 	 },
       properties = {
 		  screen = 1,

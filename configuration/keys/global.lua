@@ -80,26 +80,26 @@ local globalKeys =
     end,
     {description = 'Lock the screen', group = 'awesome'}
   ),
-  awful.key(
-    {},
-    'XF86Display',
-    function()
-		awful.spawn.easy_async("xrandr", function(out)
-			for line in out:gmatch("[^\n]*") do
-				con = string.match(line, "^([^ ]+) connected ")
-				if con then
-					res = string.match(line, " connected [^0-9]*(%d+x%d+)")
-					if con and res then
-						awful.spawn(home_dir .. "/.screenlayout/int-mon.sh", false)
-					else
-						awful.spawn(home_dir .. "/.screenlayout/two-mon-auto.sh", false)
-					end
-				end
-			end 
-		end)
-    end,
-    {description = 'подключение монитора', group = 'awesome'}
-  ),
+  --awful.key(
+  --  {},
+  --  'XF86Display',
+  --  function()
+  --  	awful.spawn.easy_async("xrandr", function(out)
+  --  		for line in out:gmatch("[^\n]*") do
+  --  			con = string.match(line, "^([^ ]+) connected ")
+  --  			if con then
+  --  				res = string.match(line, " connected [^0-9]*(%d+x%d+)")
+  --  				if con and res then
+  --  					awful.spawn(home_dir .. "/.screenlayout/int-mon.sh", false)
+  --  				else
+  --  					awful.spawn(home_dir .. "/.screenlayout/two-mon-auto.sh", false)
+  --  				end
+  --  			end
+  --  		end 
+  --  	end)
+  --  end,
+  --  {description = 'подключение монитора', group = 'awesome'}
+  --),
   awful.key(
     {modkey},
     'Print',
