@@ -96,6 +96,7 @@ awful.rules.rules = {
     -- for wine
     { rule_any = { class = {
 	    ".exe",
+	    "Wine",
 	    },
 	 },
       properties = {
@@ -134,9 +135,10 @@ awful.rules.rules = {
     -- мессенджеры во 3-ой tag
     { rule_any = { class = {
 	    "ViberPC",
-	    "zoom",
+	    -- "zoom",
 	    "Telegram",
 		"discord",
+		"Teams",
 		},
 	 },
       properties = {
