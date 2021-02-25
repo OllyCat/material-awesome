@@ -24,7 +24,7 @@ return wibox.widget {
   require('widget.harddrive.harddrive-root'),
   wibox.widget {
     wibox.widget {
-      text = '\t/home',
+      text = '\t/home/old',
       font = 'Roboto medium 10',
       widget = wibox.widget.textbox
     },

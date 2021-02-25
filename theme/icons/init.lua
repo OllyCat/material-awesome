@@ -23,6 +23,7 @@ return {
   chart = dir .. '/chart-areaspline.svg',
   memory = dir .. '/memory.svg',
   harddisk = dir .. '/harddisk.svg',
+  ssd = dir .. '/ssd.svg',
   thermometer = dir .. '/thermometer.svg',
   plus = dir .. '/plus.svg'
 }

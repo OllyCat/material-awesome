@@ -66,7 +66,8 @@ local function battery_popup()
     icon_size = dpi(200),
     timeout = 15,
     hover_timeout = 0.5,
-    position = 'bottom_left',
+    --position = 'bottom_left',
+    position = 'top_right',
     --bg = '#d32f2f',
     --fg = '#EEE9EF',
     width = 240

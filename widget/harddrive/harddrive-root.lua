@@ -25,7 +25,7 @@ watch(
 local harddrive_meter =
   wibox.widget {
   wibox.widget {
-    icon = icons.harddisk,
+    icon = icons.ssd,
     size = dpi(24),
     widget = mat_icon
   },

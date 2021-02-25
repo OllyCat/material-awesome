@@ -9,15 +9,17 @@
 # List of applications to run
 APPS=(
     #barrier
-	"xgamma -rgamma 1.00 -ggamma 0.93 -bgamma 1.00"
+	"xgamma -rgamma 1.13 -ggamma 0.95 -bgamma 0.93"
 	feh.sh
 	kbdd
+	"syndaemon -i 1 -t -K -R -d"
     )
 
 # Some applications start child applications that need to be killed on reload
 KILL=(
     #barriers
 	kbdd
+	syndaemon
     )
 
 # First kill lingering apps

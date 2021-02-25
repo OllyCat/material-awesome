@@ -159,6 +159,7 @@ local TopPanel = function(s, offset)
       clock_widget,
 	  -- Lang indicator
 	  kbd_widget, 
+	  require('widget.battery'),
       -- Layout box
       LayoutBox(s)
     }

@@ -80,26 +80,26 @@ local globalKeys =
     end,
     {description = 'Lock the screen', group = 'awesome'}
   ),
-  --awful.key(
-  --  {},
-  --  'XF86Display',
-  --  function()
-  --  	awful.spawn.easy_async("xrandr", function(out)
-  --  		for line in out:gmatch("[^\n]*") do
-  --  			con = string.match(line, "^([^ ]+) connected ")
-  --  			if con then
-  --  				res = string.match(line, " connected [^0-9]*(%d+x%d+)")
-  --  				if con and res then
-  --  					awful.spawn(home_dir .. "/.screenlayout/int-mon.sh", false)
-  --  				else
-  --  					awful.spawn(home_dir .. "/.screenlayout/two-mon-auto.sh", false)
-  --  				end
-  --  			end
-  --  		end 
-  --  	end)
-  --  end,
-  --  {description = 'подключение монитора', group = 'awesome'}
-  --),
+  awful.key(
+    {},
+    'XF86Display',
+    function()
+    	awful.spawn.easy_async("xrandr", function(out)
+    		for line in out:gmatch("[^\n]*") do
+    			con = string.match(line, "^([^ ]+) connected ")
+    			if con then
+    				res = string.match(line, " connected [^0-9]*(%d+x%d+)")
+    				if con and res then
+    					awful.spawn(home_dir .. "/.screenlayout/int-mon.sh", false)
+    				else
+    					awful.spawn(home_dir .. "/.screenlayout/two-mon-auto.sh", false)
+    				end
+    			end
+    		end 
+    	end)
+    end,
+    {description = 'подключение монитора', group = 'awesome'}
+  ),
   awful.key(
     {modkey},
     'Print',
@@ -331,19 +331,18 @@ local globalKeys =
     {},
     'XF86MonBrightnessUp',
     function()
-      awful.spawn('xbacklight -inc 6')
+      awful.spawn('xbacklight -inc 3')
     end,
-    {description = '+6%', group = 'hotkeys'}
+    {description = '+3%', group = 'hotkeys'}
   ),
   awful.key(
     {},
     'XF86MonBrightnessDown',
     function()
-      awful.spawn('xbacklight -dec 6')
+      awful.spawn('xbacklight -dec 3')
     end,
-    {description = '-6%', group = 'hotkeys'}
+    {description = '-3%', group = 'hotkeys'}
   ),
-  -- ALSA volume control
   awful.key(
     {},
     'XF86AudioRaiseVolume',
@@ -370,9 +369,25 @@ local globalKeys =
   ),
   awful.key(
     {},
+    'XF86AudioPlay',
+    function()
+      awful.spawn('mocp --toggle-pause')
+    end,
+    {description = 'audio next', group = 'hotkeys'}
+  ),
+  awful.key(
+    {},
+    'XF86AudioPrev',
+    function()
+      awful.spawn('mocp --previous')
+    end,
+    {description = 'audio next', group = 'hotkeys'}
+  ),
+  awful.key(
+    {},
     'XF86AudioNext',
     function()
-      --
+      awful.spawn('mocp --next')
     end,
     {description = 'audio next', group = 'hotkeys'}
   ),
