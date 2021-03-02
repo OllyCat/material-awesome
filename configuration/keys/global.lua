@@ -303,7 +303,7 @@ local globalKeys =
     function()
 		_G.toggle_quake()
     end,
-    {description = 'dropdown application', group = 'launcher'}
+    {description = 'dropdown quake terminal', group = 'launcher'}
   ),
   -- Widgets popups
   --[[awful.key(

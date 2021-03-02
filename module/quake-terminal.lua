@@ -9,7 +9,7 @@ function create_shell()
     spawn(
     app,
     {
-      skip_decoration = true
+      skip_decoration = false
     }
   )
 end

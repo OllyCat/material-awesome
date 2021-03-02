@@ -18,9 +18,9 @@ return {
     browser = 'google-chrome-stable',
     editor = 'gvim', -- gui text editor
     social = '/home/olly/bin/Telegram/Telegram',
-    game = rofi_command,
+    game = '/usr/bin/lutris',
     files = 'Thunar',
-    music = rofi_command 
+    music = 'terminator -e mocp' 
   },
   -- List of apps to start once on start-up
   run_on_start_up = {
