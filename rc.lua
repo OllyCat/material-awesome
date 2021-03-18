@@ -4,6 +4,8 @@ local wibox = require("wibox")
 require('awful.autofocus')
 local beautiful = require('beautiful')
 
+local home_dir = os.getenv("HOME")
+
 -- Theme
 beautiful.init(require('theme'))
 
@@ -92,7 +94,7 @@ gears.timer({
 				autostart = true,
 				call_now = true,
 				callback = function()
-					awful.spawn.with_shell("feh --bg-fill -z ~/backup/pics/background/солнышко*.jpg")
+					awful.spawn.with_shell(home_dir .. "/.fehbg")
 				end
 			})
 -- }}}

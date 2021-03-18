@@ -297,14 +297,14 @@ local globalKeys =
     {description = 'window information', group = 'client'}
   ),
   --Dropdown application
-  awful.key(
-    {modkey},
-    '`',
-    function()
-		_G.toggle_quake()
-    end,
-    {description = 'dropdown quake terminal', group = 'launcher'}
-  ),
+  --awful.key(
+  --  {modkey},
+  --  '`',
+  --  function()
+  --  	_G.toggle_quake()
+  --  end,
+  --  {description = 'dropdown quake terminal', group = 'launcher'}
+  --),
   -- Widgets popups
   --[[awful.key(
     {altkey},
@@ -410,8 +410,10 @@ local globalKeys =
   ),
   -- Open default program for tag
   awful.key(
-    {modkey, 'Control'},
-    't',
+    --{modkey, 'Control'},
+    --'t',
+    {modkey, },
+    '`',
     function()
       awful.spawn(
           awful.screen.focused().selected_tag.defaultApp,

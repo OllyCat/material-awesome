@@ -123,7 +123,7 @@ awful.rules.rules = {
     -- terminal to 2 tag
     { rule_any = { class = {
 	    "xterm",
-	    "Terminator",
+	    "kitty",
 	    "Gnome-terminal",
 	    "Xfce4-terminal" },
 	 },
